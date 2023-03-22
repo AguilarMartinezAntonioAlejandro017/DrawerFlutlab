@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
   static const String _title = 'Drawer Flutter';
   // This widget is the root of your application.
   @override
@@ -26,9 +26,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         title: Text('Act3 Drawer Aguilar'),
         backgroundColor: const Color(0xff764abc),
@@ -59,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(
                 Icons.home,
               ),
-              title: const Text('Pagina 1'),
+              title: const Text('Page 1'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -68,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(
                 Icons.train,
               ),
-              title: const Text('Pagina 2'),
+              title: const Text('Page 2'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -77,10 +79,26 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(
                 Icons.access_alarm,
               ),
-              title: const Text('Pagina 3'),
+              title: const Text('Page 3'),
               onTap: () {
                 Navigator.pop(context);
               },
+            ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('About app'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'My Cool App',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2019 Company',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
             ),
           ],
         ),
@@ -90,6 +108,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(
               height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer(); //<-- SEE HERE
+              },
+              child: const Text(
+                'Elevated Button 1',
+                style: TextStyle(fontSize: 24),
+              ),
             ),
           ],
         ),
